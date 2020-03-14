@@ -3,11 +3,13 @@ This project contains a basic SIR model, with build in plotting. A companion blo
 
 ## Running the model
 
-Simplified from the original.
+Simplified from the original. Set verbose to true for more detail.
 
 ```
 $ python model.py
-
+Generating model
+Now running
+Now plotting to output.png
 ```
 
 ## Model Parameters
@@ -24,5 +26,5 @@ Changable parameters include:
 
 More complex alterations of the model will require specific engineering of the code. Feel free to dive in.
 
-## Example Output
+## Example Output.png
 <img width="600" alt="portfolio_view" src="https://raw.githubusercontent.com/mattravenhall/BasicSIRModel/master/example.png">

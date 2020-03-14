@@ -14,7 +14,7 @@ class SIR:
         self.numIndividuals = Susceptible + Infected + Resistant
         self.results = None
         self.modelRun = False
-        self.verbose = True
+        self.verbose = False
 
     def run(self):
         Susceptible = [self.Susceptible]
@@ -57,6 +57,6 @@ if __name__ == '__main__':
     m = SIR()
     print("Now running")
     m.run()
-    filename = 'test.png'
+    filename = 'output.png'
     print("Now plotting to %s" % filename)
     m.plot(filename)
