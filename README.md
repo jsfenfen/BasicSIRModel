@@ -2,22 +2,19 @@
 This project contains a basic SIR model, with build in plotting. A companion blog post for this project can be found <a href="https://mattravenhall.github.io/2018/01/02/SIR-Model.html">here</a>.
 
 ## Running the model
-```python
->>> import model
->>> m = model.SIR()
->>> m.run()
->>> m.plot()
+
+Simplified from the original.
+
+```
+$ python model.py
+
 ```
 
-## Changing Model Parameters
-Specific parameters must be indicated when creating an new instance of the model.SIR class. For example, the beta (S to I) rate can be changed as follows:
+## Model Parameters
 
-```python
->>> import model
->>> m = model.SIR(rateSI=0.05)
-```
 
 Changable parameters include:
+
 * 'eons' (number of time points to model, default 1000)
 * 'Susceptible' (number of susceptible individuals at time 0, default 950)
 * 'Infected' (number of infected individuals at time 0, default 50)

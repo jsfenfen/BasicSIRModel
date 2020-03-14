@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 class SIR:
-    def __init__(self, eons=1000, Susceptible=950, Infected=50, Resistant=0, rateSI=0.05, rateIR=0.01):
+    def __init__(self, eons=1000, Susceptible=1000, Infected=5, Resistant=500, rateSI=0.05, rateIR=0.01):
         self.eons = eons
         self.Susceptible = Susceptible
         self.Infected = Infected
@@ -14,6 +14,7 @@ class SIR:
         self.numIndividuals = Susceptible + Infected + Resistant
         self.results = None
         self.modelRun = False
+        self.verbose = True
 
     def run(self):
         Susceptible = [self.Susceptible]
@@ -22,6 +23,9 @@ class SIR:
 
         for step in range(1, self.eons):
             S_to_I = (self.rateSI * Susceptible[-1] * Infected[-1]) / self.numIndividuals
+            if self.verbose:
+                print("S_to_I (New infections) at %s -  %s" % (step, S_to_I))
+
             I_to_R = Infected[-1] * self.rateIR
             Susceptible.append(Susceptible[-1] - S_to_I)
             Infected.append(Infected[-1] + S_to_I - I_to_R)
@@ -30,9 +34,11 @@ class SIR:
         self.results = pd.DataFrame.from_dict({'Time':list(range(len(Susceptible))),
             'Susceptible':Susceptible, 'Infected':Infected, 'Resistant':Resistant},
             orient='index').transpose()
+        if self.verbose:
+            print(self.results)
         self.modelRun = True
 
-    def plot(self):
+    def plot(self, filename):
         if self.modelRun == False:
             print('Error: Model has not run. Please call SIR.run()')
             return
@@ -43,5 +49,14 @@ class SIR:
         plt.ylabel('Population')
         plt.legend(['Susceptible','Infected','Resistant'], prop={'size': 10}, loc='upper center', bbox_to_anchor=(0.5, 1.02), ncol=3, fancybox=True, shadow=True)
         plt.title(r'$\beta = {0}, \gamma = {1}$'.format(self.rateSI, self.rateIR))
-        plt.savefig('test.png')
+        plt.savefig(filename)
         plt.close()
+
+if __name__ == '__main__':
+    print("Generating model")
+    m = SIR()
+    print("Now running")
+    m.run()
+    filename = 'test.png'
+    print("Now plotting to %s" % filename)
+    m.plot(filename)
